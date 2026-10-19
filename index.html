@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Stack: your money, one home screen</title>
+<meta name="description" content="The new Stack puts balances, bills, budgets, forecasts and goals on a widget home screen you arrange yourself. Glance, tap, done.">
+<meta name="theme-color" content="#0a0f16">
+<meta property="og:title" content="Stack: your money, one home screen">
+<meta property="og:description" content="Balances, bills, budgets and goals in widgets you arrange yourself.">
+<meta property="og:image" content="https://jacksonpjwilson-dev.github.io/stack-launch/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="shots/spending-page.webp"><link rel="preload" as="image" href="shots/app-spending.webp">
+<link rel="stylesheet" href="styles.css?v=1">
+</head>
+<body>
+<header class="nav"><a class="brand" href="#top"><img src="icon-180.png" alt="" width="28" height="28">Stack</a>
+<nav><a href="#home">Home screen</a><a href="#spend">Spending</a><a href="#budgets">Budgets</a><a href="#plan">Plan</a><a href="#goals">Goals</a><a href="#ios">iOS</a></nav>
+<a class="pill sm" href="https://jacksonpjwilson-dev.github.io/stack/preview-widget/">Try the preview</a></header>
+
+<main id="top">
+<section class="hero">
+  <div class="glow"></div>
+  <div class="hero-copy rv">
+    <img class="appicon" src="icon-512.png" alt="Stack app icon" width="112" height="112">
+    <p class="kicker">Introducing the new Stack</p>
+    <h1>Your money.<br><span class="grad">One home screen.</span></h1>
+    <p class="lede">Balances, bills, budgets and goals live together in widgets you arrange yourself. Know where you stand before you even tap.</p>
+    <div class="ctas"><a class="pill" href="https://jacksonpjwilson-dev.github.io/stack/preview-widget/">Open the live preview</a><a class="pill ghost" href="#home">See what's new ↓</a></div>
+    <div class="storewrap"><span class="store" role="img" aria-label="Coming soon on the App Store"><svg class="apl" viewBox="0 0 17 20" aria-hidden="true"><path fill="currentColor" d="M14.1 10.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9C3.6 4.8 2 5.8 1.1 7.4c-1.8 3.2-.5 7.9 1.3 10.5.9 1.3 1.9 2.7 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.6 1-1.5 1.4-2.9 1.4-3-.1 0-2.7-1-2.7-4.3zM11.6 3c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg><span><small>Coming soon on the</small><b>App Store</b></span></span></div>
+  </div>
+  <div class="hero-phone rv d2"><div class="phone xl"><div class="scr"><img src="shots/home.webp" alt="Stack widget home screen" fetchpriority="high"></div><i class="island"></i></div></div>
+</section>
+
+<section id="home" class="feature">
+  <div class="copy rv"><p class="kicker">Widget home</p><h2>Where you stand,<br>at a glance.</h2><p>Net worth, today's spending, your next payday and the bills coming up, all on one screen. A daily money briefing sums it up in plain English.</p>
+  <ul class="ticks"><li>Net worth across every account</li><li>Next payday and what's left before it</li><li>Upcoming bills with real due dates</li></ul></div>
+  <div class="stage rv d1"><div class="phone"><div class="scr"><img src="shots/home.webp" alt="Home screen widgets" loading="lazy"></div><i class="island"></i></div></div>
+</section>
+
+<section class="feature flip">
+  <div class="copy rv"><p class="kicker">Swipe pager</p><h2>A page for every<br>part of your money.</h2><p>Home, Spending, Budgets, Plan, Goals and a page for anything else. Flick between them with your finger. The dock stays put.</p></div>
+  <div class="stage rv d1"><div class="phone"><div class="scr pager-scr"><div class="pager"><img src="shots/home.webp" alt="Home page" decoding="sync"><img src="shots/spending-page.webp" alt="Spending page" decoding="sync"></div></div><i class="island"></i></div></div>
+</section>
+
+<section class="feature">
+  <div class="copy rv"><p class="kicker">Dock apps</p><h2>Tap an app.<br>Watch it open.</h2><p>Spending, Budgets, Plan, Goals and Settings sit in the dock. Each one grows out of its icon into the full section, and a swipe up from the bottom sends it home.</p></div>
+  <div class="stage rv d1"><div class="phone"><div class="scr zoomer"><img src="shots/home.webp" alt=""><img class="zoomed" src="shots/app-spending.webp" alt="Spending opening from the dock"><span class="tap"></span></div><i class="island"></i></div></div>
+</section>
+
+<section class="feature flip">
+  <div class="copy rv"><p class="kicker">Mini apps</p><h2>Widgets that open<br>into mini apps.</h2><p>Tap the Food budget and you get exactly what's left, what that means per day, and every purchase behind it.</p></div>
+  <div class="stage rv d1"><div class="phone"><div class="scr"><img src="shots/mini-budget.webp" alt="Food budget mini app" loading="lazy"></div><i class="island"></i></div></div>
+</section>
+
+<section class="colourways">
+  <div class="copy center rv"><p class="kicker">Colourways</p><h2>Twelve looks. Light, dark or auto.</h2><p>From the classic Vault navy and gold to Harbour, Midnight Gold and Electric Violet, each colourway brings its own type pairing.</p></div>
+  <div class="cw-picker rv d1" role="tablist" aria-label="Colourway">
+    <button class="cw on" data-src="shots/home.webp" role="tab" aria-selected="true"><i style="background:#d4b06a"></i>Vault</button>
+    <button class="cw" data-src="shots/home-harbour.webp" role="tab" aria-selected="false"><i style="background:#1f8f7c"></i>Harbour</button>
+    <button class="cw" data-src="shots/home-midnight.webp" role="tab" aria-selected="false"><i style="background:#8c6c34"></i>Midnight Gold</button>
+    <button class="cw" data-src="shots/home-violet.webp" role="tab" aria-selected="false"><i style="background:#7c3aed"></i>Violet</button>
+    <button class="cw" data-src="shots/home-ember.webp" role="tab" aria-selected="false"><i style="background:#e0955a"></i>Ember</button>
+    <button class="cw" data-src="shots/settings.webp" role="tab" aria-selected="false"><i class="all"></i>All twelve</button>
+  </div>
+  <div class="stage rv d2"><div class="phone"><div class="scr"><img id="cwimg" src="shots/home.webp" alt="Home screen in the selected colourway" loading="lazy"></div><i class="island"></i></div></div>
+</section>
+
+<section id="spend" class="trio">
+  <div class="copy center rv"><p class="kicker">Spending</p><h2>Every dollar, sorted.</h2><p>This month against last, category by category. Top merchants, a daily spend chart and flags for anything unusual, like a large purchase or a charge that landed twice.</p></div>
+  <div class="row3">
+    <figure class="rv"><div class="phone"><div class="scr"><img src="shots/spending-page.webp" alt="Spending widgets" loading="lazy"></div><i class="island"></i></div><figcaption><b>Spending page</b>This month, categories and recent buys.</figcaption></figure>
+    <figure class="rv d1"><div class="phone"><div class="scr"><img src="shots/app-spending.webp" alt="Spending app" loading="lazy"></div><i class="island"></i></div><figcaption><b>This vs last month</b>Every category, side by side.</figcaption></figure>
+    <figure class="rv d2"><div class="phone"><div class="scr"><img src="shots/sheet-category.webp" alt="Change a category" loading="lazy"></div><i class="island"></i></div><figcaption><b>One-tap categories</b>Fix a merchant once and Stack remembers.</figcaption></figure>
+  </div>
+</section>
+
+<section id="budgets" class="trio dark">
+  <div class="copy center rv"><p class="kicker">Budgets</p><h2>Budgets that fill themselves.</h2><p>Budgets update from your spending automatically. One budget can cover several categories, and the pace marker tells you if you're ahead of where you should be this far into the month.</p></div>
+  <div class="row3">
+    <figure class="rv"><div class="phone"><div class="scr"><img src="shots/budgets-page.webp" alt="Budgets page" loading="lazy"></div><i class="island"></i></div><figcaption><b>Budgets page</b>Rings, pace and what's left to spend.</figcaption></figure>
+    <figure class="rv d1"><div class="phone"><div class="scr"><img src="shots/app-budgets.webp" alt="Budgets app" loading="lazy"></div><i class="island"></i></div><figcaption><b>Pace marker</b>See if you're ahead of the month.</figcaption></figure>
+    <figure class="rv d2"><div class="phone"><div class="scr"><img src="shots/mini-budget.webp" alt="Budget mini app" loading="lazy"></div><i class="island"></i></div><figcaption><b>Per-day guidance</b>What's left, divided by the days left.</figcaption></figure>
+  </div>
+</section>
+
+<section id="plan" class="trio">
+  <div class="copy center rv"><p class="kicker">Plan</p><h2>See next month before it happens.</h2><p>A 60-day cash-flow forecast built from your pay schedule, bills and everyday spending. It warns you before chequing dips below your floor, and lists every subscription and loan in one place.</p></div>
+  <div class="row3">
+    <figure class="rv"><div class="phone"><div class="scr"><img src="shots/plan-page.webp" alt="Plan page" loading="lazy"></div><i class="island"></i></div><figcaption><b>Plan page</b>Forecast, bills and a 14-day strip.</figcaption></figure>
+    <figure class="rv d1"><div class="phone"><div class="scr"><img src="shots/app-plan.webp" alt="Cash-flow forecast" loading="lazy"></div><i class="island"></i></div><figcaption><b>60-day forecast</b>Lowest point and payday balance.</figcaption></figure>
+    <figure class="rv d2"><div class="phone"><div class="scr"><img src="shots/mini-upcoming.webp" alt="Upcoming money" loading="lazy"></div><i class="island"></i></div><figcaption><b>Next 30 days</b>Bills, card payment, pay and set-asides.</figcaption></figure>
+  </div>
+</section>
+
+<section id="goals" class="trio dark">
+  <div class="copy center rv"><p class="kicker">Goals</p><h2>Save for it. Watch it fill.</h2><p>Set money aside in virtual accounts inside your real ones, with automatic monthly contributions. Link a goal and Stack tells you exactly how much to save per paycheque.</p></div>
+  <div class="row3">
+    <figure class="rv"><div class="phone"><div class="scr"><img src="shots/goals-page.webp" alt="Goals page" loading="lazy"></div><i class="island"></i></div><figcaption><b>Goals page</b>Trips, funds and next set-aside.</figcaption></figure>
+    <figure class="rv d1"><div class="phone"><div class="scr"><img src="shots/mini-goal.webp" alt="Goal mini app" loading="lazy"></div><i class="island"></i></div><figcaption><b>Per-paycheque target</b>On track, behind or reached.</figcaption></figure>
+    <figure class="rv d2"><div class="phone"><div class="scr"><img src="shots/app-goals.webp" alt="Virtual accounts" loading="lazy"></div><i class="island"></i></div><figcaption><b>Virtual accounts</b>Money set aside stops looking spendable.</figcaption></figure>
+  </div>
+</section>
+
+<section class="trio">
+  <div class="copy center rv"><p class="kicker">Make it yours</p><h2>Press, hold, rearrange.</h2><p>Every page is yours to design. Add widgets in small, medium or large, drag them into place, and the add-widget gallery only shows what belongs on that page.</p></div>
+  <div class="row3">
+    <figure class="rv"><div class="phone"><div class="scr"><img src="shots/edit.webp" alt="Edit mode" loading="lazy"></div><i class="island"></i></div><figcaption><b>Edit mode</b>Remove, resize and drag to reorder.</figcaption></figure>
+    <figure class="rv d1"><div class="phone"><div class="scr"><img src="shots/gallery.webp" alt="Widget gallery" loading="lazy"></div><i class="island"></i></div><figcaption><b>Widget gallery</b>Live previews in every size.</figcaption></figure>
+    <figure class="rv d2"><div class="phone"><div class="scr"><img src="shots/other-page.webp" alt="Other page" loading="lazy"></div><i class="island"></i></div><figcaption><b>Other page</b>Accounts, investments and privacy.</figcaption></figure>
+  </div>
+</section>
+
+<section id="ios" class="ios">
+  <div class="copy center rv"><p class="kicker">Beyond the phone</p><h2>On your wrist, on your Lock Screen, and everywhere in between.</h2><p>The native iOS app takes Stack beyond the app, so you can check what's safe to spend without unlocking your phone.</p></div>
+  <div class="ios-grid">
+    <article class="ic rv"><div class="istage lockbg">
+      <div class="lk-time"><small>Monday 19 October</small><b>9:41</b></div>
+      <div class="lkrow"><div class="lk-w"><small>Left to spend</small><b>$417</b></div><div class="lk-w"><small>Payday</small><b>in 10 days</b></div></div>
+      <div class="live"><div class="live-top"><img src="icon-180.png" alt="" width="20" height="20"><span>Food budget · October</span><b>$213</b></div><div class="live-mid"><span>left of $650</span><span>≈ $16/day</span></div><div class="bar"><i style="--p:.67"></i></div></div>
+    </div><h3>Lock Screen widgets</h3><p>What's left to spend and how long until payday, right under the clock.</p><em class="soon">Coming with the iOS app</em></article>
+
+    <article class="ic rv d1"><div class="istage homebg">
+      <div class="wgrid">
+        <div class="wd"><small>Net worth</small><div class="num">$6,851</div><span class="sub">▲ $212 this month</span><ul><li><span>Assets</span><span>$13.9k</span></li><li><span>Debts</span><span>$7.0k</span></li></ul></div>
+        <div class="wd"><small>Food budget</small><div class="ring"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" class="trk"/><circle cx="32" cy="32" r="27" class="prg" pathLength="100" stroke-dasharray="67 100"/></svg><b>$213<small>left</small></b></div></div>
+        <div class="apps"><i style="background:linear-gradient(160deg,#5ac8fa,#007aff)">☁️</i><i style="background:linear-gradient(160deg,#ff9f43,#ee5a24)">🎧</i><img src="icon-180.png" alt=""><i style="background:linear-gradient(160deg,#7bed9f,#20bf6b)">💬</i></div>
+      </div>
+    </div><h3>Home Screen widgets</h3><p>Net worth and your tightest budget, right next to your other apps.</p><em class="soon">Coming with the iOS app</em></article>
+
+    <article class="ic rv"><div class="istage watchbg">
+      <div class="watch"><div class="wcase"><div class="wscr">
+        <div class="wtop"><span class="wg">Stack</span><span>12:48</span></div>
+        <div class="wex">Spent today</div><div class="wval">$69<small>.40</small></div>
+        <div class="wex">Food budget</div><div class="wbar"><i style="width:67%"></i></div>
+        <div class="wex" style="margin-top:4px">$213 left · $16/day</div>
+        <div class="wbtn">Next bill: Hydro Thu</div>
+      </div></div><i class="crown"></i><i class="sbtn"></i></div>
+    </div><h3>Apple Watch</h3><p>Glance at today's spending and your budgets before you tap to pay.</p><em class="soon">Coming with the iOS app</em></article>
+
+    <article class="ic rv d1"><div class="istage notifbg">
+      <div class="nstack">
+        <div class="note n1"><img src="icon-180.png" alt="" width="20" height="20"><div><div class="nh"><b>Possible duplicate</b><time>now</time></div><p>Pizza Place charged $42.10 twice yesterday. Tap to review.</p></div></div>
+        <div class="note n2"><img src="icon-180.png" alt="" width="20" height="20"><div><div class="nh"><b>Hydro due Thursday</b><time>9:00 am</time></div><p>$58.40 comes out of chequing. You'll still have $1,890 free.</p></div></div>
+        <div class="note n3"><img src="icon-180.png" alt="" width="20" height="20"><div><div class="nh"><b>Heads up on chequing</b><time>yesterday</time></div><p>Your forecast dips to $756 around Nov 11, still above your $300 floor.</p></div></div>
+      </div>
+    </div><h3>Smart notifications</h3><p>Bill reminders, duplicate-charge alerts and low-balance warnings, only when they matter.</p><em class="soon">Coming with the iOS app</em></article>
+  </div>
+</section>
+
+<section class="sync">
+  <div class="copy center rv"><p class="kicker">Private by design</p><h2>Your money stays yours.</h2></div>
+  <div class="trust">
+    <div class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg><b>Private to your account</b><p>Your data syncs to your own account and nobody else can read it.</p></div>
+    <div class="rv d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><b>Hide amounts</b><p>One tap turns every number into •••, so you can hand your phone over.</p></div>
+    <div class="rv d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 0 1-14 5.3M4 12a8 8 0 0 1 14-5.3"/><path d="M18 2v5h-5M6 22v-5h5"/></svg><b>Phone and computer</b><p>The same Stack on every device, with a refresh button when you want the latest.</p></div>
+  </div>
+</section>
+
+<section class="final rv">
+  <img class="appicon" src="icon-512.png" alt="" width="96" height="96">
+  <h2>Your money, on one screen.</h2>
+  <p>Open the live preview on your iPhone, tap Share, then Add to Home Screen.</p>
+  <div class="ctas center"><a class="pill" href="https://jacksonpjwilson-dev.github.io/stack/preview-widget/">Open the live preview</a><span class="store" role="img" aria-label="Coming soon on the App Store"><svg class="apl" viewBox="0 0 17 20" aria-hidden="true"><path fill="currentColor" d="M14.1 10.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9C3.6 4.8 2 5.8 1.1 7.4c-1.8 3.2-.5 7.9 1.3 10.5.9 1.3 1.9 2.7 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.6 1-1.5 1.4-2.9 1.4-3-.1 0-2.7-1-2.7-4.3zM11.6 3c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg><span><small>Coming soon on the</small><b>App Store</b></span></span></div>
+  <span class="sample"><i></i>The preview runs on sample data. It never connects to a bank.</span>
+</section>
+</main>
+<footer><span>© 2026 Stack</span><span>Screens shown use sample data.</span></footer>
+<script src="app.js?v=1"></script>
+</body>
+</html>
