@@ -18,7 +18,7 @@ struct DashboardView: View {
                 }
                 HStack { metric("Income", income); Spacer(); metric("Expenses", spending); Spacer(); metric("Cash flow", income - spending) }
                 GroupBox("Spending by category · CAD") {
-                    Chart(Finance.categories, id: \.self) { category in
+                    Chart(Array(Set(Finance.categories + ledger.entries.map { Finance.category($0, rules: ledger.rules) } + ledger.entries.flatMap { $0.splits.map(\.category) })).sorted(), id: \.self) { category in
                         let value = Finance.spending(ledger.entries, start: period.start, end: period.end, category: category, rules: ledger.rules)
                         if value > 0 { BarMark(x: .value("Amount", NSDecimalNumber(decimal: value).doubleValue), y: .value("Category", category)).foregroundStyle(.teal) }
                     }.frame(height: 220).padding(.top)

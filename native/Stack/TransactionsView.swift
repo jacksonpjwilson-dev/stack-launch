@@ -53,7 +53,7 @@ struct EntryEditor: View {
         Form {
             if store.ledger.accounts.isEmpty { Text("Create an account in Settings first.").foregroundStyle(.secondary) }
             TextField("Merchant", text: $merchant)
-            TextField("Amount (positive magnitude)", text: $amount).keyboardType(.decimalPad)
+            TextField("Amount (positive magnitude)", text: $amount).keyboardType(.decimalPad).disabled(existing != nil && existing?.provider != "manual")
             Picker("Account", selection: $accountID) { ForEach(store.ledger.accounts) { Text($0.name + " · " + $0.currency).tag($0.id) } }.disabled(existing != nil)
             DatePicker("Date", selection: $date, displayedComponents: .date).disabled(existing?.provider != "manual" && existing != nil)
             Picker("Type", selection: $kind) { ForEach(TransactionKind.allCases, id: \.self) { Text($0.rawValue.capitalized).tag($0) } }

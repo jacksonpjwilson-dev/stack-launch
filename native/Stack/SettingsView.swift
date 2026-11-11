@@ -24,7 +24,7 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Section("Accounts") {
-                ForEach(store.ledger.accounts) { account in VStack(alignment: .leading) { Text(account.name); Text("Manual · \(account.currency)").font(.caption).foregroundStyle(.secondary) } }
+                ForEach(store.ledger.accounts) { account in NavigationLink { AccountBalanceEditor(accountID: account.id) } label: { VStack(alignment: .leading) { Text(account.name); Text("Manual · \(account.currency)").font(.caption).foregroundStyle(.secondary) } } }
                 TextField("New account name", text: $accountName)
                 Button("Add manual CAD account") { store.update { $0.accounts.append(Account(name: accountName)) }; accountName = "" }.disabled(accountName.trimmingCharacters(in: .whitespaces).isEmpty)
                 Text("Automatic bank connections are not configured. No banking credentials are stored by this app.").font(.caption).foregroundStyle(.secondary)
@@ -104,4 +104,30 @@ struct CSVImportView: View {
         .onAppear { accountID = store.ledger.accounts.first?.id ?? ""; dateColumn = headers.first ?? ""; merchantColumn = headers.dropFirst().first ?? ""; amountColumn = headers.dropFirst(2).first ?? "" }
     }
     func column(_ title: String, selection: Binding<String>) -> some View { Picker(title, selection: selection) { Text("Choose column").tag(""); ForEach(headers, id: \.self) { Text($0).tag($0) } } }
+}
+
+struct AccountBalanceEditor: View {
+    @EnvironmentObject private var store: StackStore
+    @Environment(\.dismiss) private var dismiss
+    let accountID: String
+    @State private var balance = ""
+    @State private var name = ""
+    @State private var isDebt = false
+    var body: some View {
+        Form {
+            TextField("Account name", text: $name)
+            TextField("Balance magnitude", text: $balance).keyboardType(.decimalPad)
+            Toggle("Negative balance / debt", isOn: $isDebt)
+            Text("This updates your recorded balance only. Manual transactions do not automatically adjust it.").font(.caption).foregroundStyle(.secondary)
+            Button("Save balance") {
+                let value = balance == "0" ? Decimal(0) : MoneyInput.parse(balance)
+                guard let value, !name.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+                store.update { ledger in
+                    if let index = ledger.accounts.firstIndex(where: { $0.id == accountID }) { ledger.accounts[index].balance = isDebt ? -value : value; ledger.accounts[index].name = name }
+                }
+                if store.error == nil { dismiss() }
+            }.disabled(name.trimmingCharacters(in: .whitespaces).isEmpty || (balance != "0" && MoneyInput.parse(balance) == nil))
+        }.navigationTitle("Recorded account balance")
+        .onAppear { if let account = store.ledger.accounts.first(where: { $0.id == accountID }) { name = account.name; isDebt = account.balance < 0; balance = abs(account.balance).formatted(.number.grouping(.never)) } }
+    }
 }

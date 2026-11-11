@@ -43,3 +43,7 @@ These are concrete reliability gaps, not a demonstrated explanation for the repo
 ## Verification boundaries
 
 Local Node tests verify the ingestion engine using synthetic provider responses and encrypted temporary storage. The preserved launch site has its original smoke checks. Swift core tests and an Xcode simulator build are configured in a macOS GitHub Actions workflow. Record actual run outcomes in the PR; configuration alone is not a successful build. This Linux host has no Xcode, iOS SDK or simulator.
+
+## Local validation
+
+The final financial core built with the official Swift 6.0.3 Linux toolchain and all 29 tests passed. Six synthetic Node ingestion tests pass, along with 55 repository smoke checks. App and widget source syntax, property lists and entitlements were checked locally. These are not substitutes for Xcode compilation or device security validation; see the Native iOS workflow for the separate Apple build result. The attempted macos-14 runner was explicitly rejected as unsupported by GitHub; the workflow uses the supported macos-15 label.
