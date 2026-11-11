@@ -11,11 +11,17 @@ permissions:
   contents: read
 jobs:
   test:
-    runs-on: macos-15
+    runs-on: macos-14
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - name: Financial core tests
         run: swift test --package-path native
       - name: Build native iOS app for simulator
-        run: xcodebuild -project native/Stack.xcodeproj -scheme Stack -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
+        run: xcodebuild -project native/Stack.xcodeproj -scheme Stack -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath /tmp/StackDerivedData CODE_SIGNING_ALLOWED=NO build
+      - name: Launch app in iPhone simulator
+        run: bash ci/native-smoke.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-overview
+          path: /tmp/StackScreenshots/overview.png
