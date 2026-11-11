@@ -6,7 +6,7 @@ public enum Recurrence {
     /// Three posted expenses with two consistent intervals are a candidate, never confirmation.
     public static func candidates(_ entries: [Entry], calendar: Calendar = .current) -> [RecurringCandidate] {
         let groups = Dictionary(grouping: entries.filter { $0.accountingKind == .expense && !$0.pending && !$0.excluded }) { $0.accountID + ":" + $0.currency + ":" + $0.displayMerchant.lowercased() }
-        return groups.compactMap { key, values in
+        let candidates: [RecurringCandidate] = groups.compactMap { (key: String, values: [Entry]) -> RecurringCandidate? in
             let sorted = values.sorted { $0.date < $1.date }
             guard sorted.count >= 3 else { return nil }
             let recent = Array(sorted.suffix(3))
@@ -21,6 +21,7 @@ public enum Recurrence {
             else { next = calendar.date(byAdding: .day, value: interval, to: last.date) }
             guard let next else { return nil }
             return RecurringCandidate(id: key, merchant: last.displayMerchant, amount: last.amount, currency: last.currency, intervalDays: interval, nextExpected: next, priceIncreased: last.amount > prior)
-        }.sorted { $0.nextExpected < $1.nextExpected }
+        }
+        return candidates.sorted { $0.nextExpected < $1.nextExpected }
     }
 }
