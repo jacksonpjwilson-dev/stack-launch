@@ -1,0 +1,11 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+native/.build/
+native/.swiftpm/
+DerivedData/
+xcuserdata/
+*.xcuserstate

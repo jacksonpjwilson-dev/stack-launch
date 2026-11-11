@@ -1,0 +1,9 @@
+// swift-tools-version: 5.9
+import PackageDescription
+
+let package = Package(
+  name: "StackCore", platforms: [.iOS(.v17), .macOS(.v14)],
+  products: [.library(name: "StackCore", targets: ["StackCore"])],
+  targets: [
+    .target(name: "StackCore"), .testTarget(name: "StackCoreTests", dependencies: ["StackCore"]),
+  ])
