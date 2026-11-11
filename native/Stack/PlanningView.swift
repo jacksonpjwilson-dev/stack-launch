@@ -21,13 +21,13 @@ struct PlanningView: View {
                 TextField("Spending limit", text: $limit).keyboardType(.decimalPad)
                 DatePicker("Start", selection: $start, displayedComponents: .date)
                 DatePicker("End (exclusive)", selection: $end, displayedComponents: .date)
-                Button("Add budget") { if let value = Decimal(string: limit, locale: .current), value > 0, end > start { store.update { $0.budgets.append(Budget(category: category, limit: value, start: start, end: end)) }; limit = "" } }.disabled((Decimal(string: limit, locale: .current) ?? 0) <= 0 || end <= start)
+                Button("Add budget") { if let value = MoneyInput.parse(limit), value > 0, end > start { store.update { $0.budgets.append(Budget(category: category, limit: value, start: start, end: end)) }; limit = "" } }.disabled((MoneyInput.parse(limit) ?? 0) <= 0 || end <= start)
             }
             Section("Savings goals · tracked contributions") {
                 ForEach(store.ledger.goals) { goal in NavigationLink { GoalView(goalID: goal.id) } label: { VStack(alignment: .leading) { Text(goal.name); Text("\(money(goal.saved)) / \(money(goal.target))").font(.caption); ProgressView(value: min(NSDecimalNumber(decimal: goal.saved / goal.target).doubleValue, 1)) } } }
                     .onDelete { offsets in store.update { $0.goals.remove(atOffsets: offsets) } }
                 TextField("Goal name", text: $goalName); TextField("Target amount", text: $target).keyboardType(.decimalPad)
-                Button("Add savings goal") { if let value = Decimal(string: target, locale: .current), value > 0, !goalName.isEmpty { store.update { $0.goals.append(Goal(name: goalName, target: value)) }; goalName = ""; target = "" } }.disabled(goalName.isEmpty || (Decimal(string: target, locale: .current) ?? 0) <= 0)
+                Button("Add savings goal") { if let value = MoneyInput.parse(target), value > 0, !goalName.isEmpty { store.update { $0.goals.append(Goal(name: goalName, target: value)) }; goalName = ""; target = "" } }.disabled(goalName.isEmpty || (MoneyInput.parse(target) ?? 0) <= 0)
             }
             Section("Category rules · newer rules run first") {
                 ForEach(store.ledger.rules.sorted { $0.priority > $1.priority }) { rule in Text("\(rule.contains) → \(rule.category)") }
@@ -48,7 +48,7 @@ struct GoalView: View {
             Section(goal.name) { Text("Recorded: \(money(goal.saved))"); Text("Remaining: \(money(max(0, goal.target - goal.saved)))"); Text("Contributions are tracking records; no money is moved.").font(.caption) }
             Section("Contribution history") { ForEach(goal.contributions) { c in HStack { Text(c.date, style: .date); Spacer(); Text(money(c.amount)) } } }
             TextField("Contribution amount", text: $amount).keyboardType(.decimalPad)
-            Button("Record contribution") { if let value = Decimal(string: amount, locale: .current), value > 0 { store.update { ledger in if let i = ledger.goals.firstIndex(where: { $0.id == goalID }) { ledger.goals[i].contributions.append(Contribution(amount: value)) } }; amount = "" } }.disabled((Decimal(string: amount, locale: .current) ?? 0) <= 0)
+            Button("Record contribution") { if let value = MoneyInput.parse(amount), value > 0 { store.update { ledger in if let i = ledger.goals.firstIndex(where: { $0.id == goalID }) { ledger.goals[i].contributions.append(Contribution(amount: value)) } }; amount = "" } }.disabled((MoneyInput.parse(amount) ?? 0) <= 0)
         } }.navigationTitle("Savings goal")
     }
 }

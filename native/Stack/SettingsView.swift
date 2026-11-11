@@ -11,6 +11,7 @@ struct TextDocument: FileDocument {
 struct SettingsView: View {
     @EnvironmentObject private var store: StackStore
     @AppStorage("biometricLock") private var biometricLock = false
+    @AppStorage("widgetValuesVisible") private var widgetValuesVisible = false
     @State private var accountName = ""
     @State private var importing = false
     @State private var restoring = false
@@ -29,6 +30,7 @@ struct SettingsView: View {
                 Text("Automatic bank connections are not configured. No banking credentials are stored by this app.").font(.caption).foregroundStyle(.secondary)
             }
             Section("Security") { Toggle("Require device authentication", isOn: $biometricLock); Text("Uses Face ID, Touch ID, or your device passcode. Local records use complete file protection.").font(.caption) }
+            Section("Widgets") { Toggle("Show financial values in widgets", isOn: $widgetValuesVisible).onChange(of: widgetValuesVisible) { _, _ in WidgetCache.publish(store.ledger) }; Text("Off by default. Widgets display cached CAD summaries, not real-time balances. Enable the shared App Group for both targets before using widgets on a device.").font(.caption) }
             Section("Your data") {
                 Button("Import CSV from Files") { importing = true }.disabled(store.ledger.accounts.isEmpty)
                 Button("Export transactions as CSV") { exportDocument = TextDocument(text: CSV.export(store.ledger.entries)); exportType = .commaSeparatedText; exporting = true }

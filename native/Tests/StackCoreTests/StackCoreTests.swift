@@ -16,6 +16,21 @@ final class StackCoreTests: XCTestCase {
     }
     func ledger() -> Ledger { var ledger = Ledger(); ledger.accounts = [Account(id: "a", name: "Synthetic account")]; return ledger }
     var start: Date { date("2026-10-01") }; var end: Date { date("2026-11-01") }
+    func testWidgetValuesAreOptInAndCacheContainsNoTransactions() throws {
+        var original = ledger(); original.entries = [entry(amount: "123.45")]
+        let hidden = WidgetSnapshot(ledger: original, valuesVisible: false)
+        XCTAssertNil(hidden.spending); XCTAssertNil(hidden.remainingBudget); XCTAssertNil(hidden.savings)
+        let payload = String(decoding: try JSONEncoder().encode(hidden), as: UTF8.self)
+        XCTAssertFalse(payload.contains("123.45")); XCTAssertFalse(payload.contains("Synthetic merchant")); XCTAssertFalse(payload.contains("accountID"))
+        let visible = WidgetSnapshot(ledger: original, valuesVisible: true, now: date("2026-10-20"))
+        XCTAssertEqual(visible.spending, Decimal(string: "123.45"))
+    }
+    func testStrictLocalizedMoneyInput() {
+        XCTAssertEqual(MoneyInput.parse("12,34", locale: Locale(identifier: "fr_CA")), Decimal(string: "12.34"))
+        XCTAssertNil(MoneyInput.parse("12.34junk", locale: Locale(identifier: "en_CA")))
+        XCTAssertNil(MoneyInput.parse("0.001", locale: Locale(identifier: "en_CA")))
+        XCTAssertNil(MoneyInput.parse("-2", locale: Locale(identifier: "en_CA")))
+    }
     func testDecimalPrecision() {
         let entries = [entry("1", amount: "0.10"), entry("2", amount: "0.20")]
         XCTAssertEqual(Finance.spending(entries, start: start, end: end), Decimal(string: "0.30"))

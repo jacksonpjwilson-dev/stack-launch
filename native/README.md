@@ -7,7 +7,8 @@ A real SwiftUI iOS 17 application alongside the preserved launch website. No sam
 1. Install Xcode 16 or later. Open `native/Stack.xcodeproj`.
 2. Select the **Stack** scheme and an iPhone simulator, then Run.
 3. For a physical device, choose your signing team and a unique bundle identifier in Signing & Capabilities. Device installation and distribution require appropriate Apple signing configuration; App Store distribution requires Apple Developer membership.
-4. In Settings add a manual CAD account. Add transactions in Activity, budgets/goals in Plan, or import CSV in Settings.
+4. For widgets on a device, register an App Group for your own signing team and replace `group.dev.stack.finance` in both entitlements and `WidgetSnapshot.groupID`. Select that group for both Stack and StackWidgets. Values are hidden by default; opt in through Settings only if you want cached summaries visible on widget surfaces.
+5. In Settings add a manual CAD account. Add transactions in Activity, budgets/goals in Plan, or import CSV in Settings.
 
 The local `StackCore` Swift package resolves without third-party dependencies. Run core tests with `swift test --package-path native`. Build without signing with:
 
@@ -35,7 +36,7 @@ Stable keys use account/currency/date/merchant/amount plus occurrence number wit
 
 - No configured automatic bank connection or native Plaid Link flow. No live BMO, Plaid, Render, or alternate-provider validation has occurred.
 - Backend ingestion exists as an encrypted single-owner job; authenticated API delivery into iOS, accounts/balance ingestion, webhook verification, multiuser authorization, APNs and deployment are still required.
-- No WidgetKit, watchOS, ActivityKit, notification scheduling or iCloud targets yet. Six App Intents expose spending, budget, goals, recent records, bill candidates and Open Stack with device authentication for financial queries; manual-entry intents remain pending. Siri/device behavior requires validation.
+- WidgetKit includes Home Screen and Lock Screen budget/savings widgets, with opt-in minimal cached values and overview deep links. Signing/App Groups and device behavior remain unverified. Bill/recent-activity widget variants and goal selection are pending. No watchOS, ActivityKit, notification scheduling or iCloud targets yet. Six App Intents expose spending, budget, goals, recent records, bill candidates and Open Stack with device authentication for financial queries; manual-entry intents remain pending. Siri/device behavior requires validation.
 - No budget rollover, historical budget versioning/editing, income schedules, dashboard card reordering, full insights engine or subscription confirmation/reminders.
 - Rules can be added; rule editing/reordering/removal and custom category management need further work. Budgets can be created for custom periods and deleted; editing/versioning is pending.
 - Recurrence detection produces suspected candidates after three charges; it cannot establish that a service remains active. Goal contributions are manually recorded, not bank transfers.

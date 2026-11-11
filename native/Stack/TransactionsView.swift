@@ -65,7 +65,7 @@ struct EntryEditor: View {
                 ForEach(splits.indices, id: \.self) { index in HStack { Text(splits[index].category); Spacer(); Text(money(splits[index].amount)) } }.onDelete { splits.remove(atOffsets: $0) }
                 Picker("Split category", selection: $splitCategory) { ForEach(Finance.categories, id: \.self) { Text($0).tag($0) } }
                 TextField("Split amount", text: $splitAmount).keyboardType(.decimalPad)
-                Button("Add split") { if let value = Decimal(string: splitAmount, locale: .current), value > 0 { splits.append(Split(category: splitCategory, amount: value)); splitAmount = "" } }
+                Button("Add split") { if let value = MoneyInput.parse(splitAmount), value > 0 { splits.append(Split(category: splitCategory, amount: value)); splitAmount = "" } }
                 if existing?.splitsNeedReview == true { Text("The provider changed the total. Review these splits before saving.").foregroundStyle(.orange) }
             }
             Toggle("Exclude from spending and budgets", isOn: $excluded)
@@ -75,12 +75,12 @@ struct EntryEditor: View {
         }
         .navigationTitle(existing == nil ? "New transaction" : "Edit transaction")
         .onAppear {
-            if let e = existing { merchant = e.displayMerchant; amount = NSDecimalNumber(decimal: e.amount).stringValue; accountID = e.accountID; kind = e.accountingKind; category = Finance.category(e, rules: store.ledger.rules); date = e.date; notes = e.notes; excluded = e.excluded; tags = e.tags.joined(separator: ", "); splits = e.splits; if !Finance.categories.contains(category) { customCategory = category; category = "Other" } }
+            if let e = existing { merchant = e.displayMerchant; amount = e.amount.formatted(.number.grouping(.never)); accountID = e.accountID; kind = e.accountingKind; category = Finance.category(e, rules: store.ledger.rules); date = e.date; notes = e.notes; excluded = e.excluded; tags = e.tags.joined(separator: ", "); splits = e.splits; if !Finance.categories.contains(category) { customCategory = category; category = "Other" } }
             else { accountID = store.ledger.accounts.first?.id ?? "" }
         }
     }
     func save() {
-        guard let value = Decimal(string: amount, locale: .current), value > 0, let account = store.ledger.accounts.first(where: { $0.id == accountID }) else { validation = "Choose an account and enter a positive amount."; return }
+        guard let value = MoneyInput.parse(amount), value > 0, let account = store.ledger.accounts.first(where: { $0.id == accountID }) else { validation = "Choose an account and enter a positive amount."; return }
         var entry = existing ?? Entry(accountID: accountID, merchant: merchant, amount: value, currency: account.currency, date: date, kind: kind)
         if existing?.provider == "manual" { entry.amount = value; entry.date = date }
         entry.correction = merchant; entry.categoryOverride = customCategory.trimmingCharacters(in: .whitespaces).isEmpty ? category : customCategory; entry.splits = splits; entry.tags = tags.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }; entry.kindOverride = kind; entry.notes = notes; entry.excluded = excluded
