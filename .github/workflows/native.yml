@@ -1,0 +1,18 @@
+name: Native iOS
+on:
+  push:
+    paths: ['native/**', '.github/workflows/native.yml']
+  pull_request:
+    paths: ['native/**', '.github/workflows/native.yml']
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Financial core tests
+        run: swift test --package-path native
+      - name: Build native iOS app for simulator
+        run: xcodebuild -project native/Stack.xcodeproj -scheme Stack -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
