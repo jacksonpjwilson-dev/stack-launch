@@ -29,7 +29,7 @@ public enum CSV {
         let di = try column(mapping.date), mi = try column(mapping.merchant)
         let ai = try mapping.amount.map { try column($0) }, debit = try mapping.debit.map { try column($0) }, credit = try mapping.credit.map { try column($0) }
         guard ai != nil || (debit != nil && credit != nil) else { throw CoreError.invalidCSV }
-        let formatter = DateFormatter(); formatter.locale = Locale(identifier: "en_US_POSIX"); formatter.timeZone = TimeZone(secondsFromGMT: 0); formatter.dateFormat = "yyyy-MM-dd"; formatter.isLenient = false
+        let formatter = DateFormatter(); formatter.locale = Locale(identifier: "en_US_POSIX"); formatter.timeZone = .current; formatter.dateFormat = "yyyy-MM-dd"; formatter.isLenient = false
         var occurrences: [String: Int] = [:]
         return try rows.map { row in
             guard row.count == header.count, let date = formatter.date(from: row[di]), formatter.string(from: date) == row[di] else { throw CoreError.invalidCSV }

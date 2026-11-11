@@ -35,7 +35,7 @@ Stable keys use account/currency/date/merchant/amount plus occurrence number wit
 
 - No configured automatic bank connection or native Plaid Link flow. No live BMO, Plaid, Render, or alternate-provider validation has occurred.
 - Backend ingestion exists as an encrypted single-owner job; authenticated API delivery into iOS, accounts/balance ingestion, webhook verification, multiuser authorization, APNs and deployment are still required.
-- No WidgetKit, watchOS, App Intents, ActivityKit, notification scheduling or iCloud targets yet.
+- No WidgetKit, watchOS, ActivityKit, notification scheduling or iCloud targets yet. Six App Intents expose spending, budget, goals, recent records, bill candidates and Open Stack with device authentication for financial queries; manual-entry intents remain pending. Siri/device behavior requires validation.
 - No budget rollover, historical budget versioning/editing, income schedules, dashboard card reordering, full insights engine or subscription confirmation/reminders.
 - Rules can be added; rule editing/reordering/removal and custom category management need further work. Budgets can be created for custom periods and deleted; editing/versioning is pending.
 - Recurrence detection produces suspected candidates after three charges; it cannot establish that a service remains active. Goal contributions are manually recorded, not bank transfers.
