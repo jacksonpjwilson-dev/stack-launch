@@ -75,6 +75,24 @@ final class StackCoreTests: XCTestCase {
         let result = try await Synchronizer.synchronize(original, accountID: "a", provider: provider)
         XCTAssertEqual(result.entries.count, 1); XCTAssertEqual(result.entries.first?.id, "posted"); XCTAssertEqual(result.entries.first?.notes, "Keep me")
     }
+    func testPendingRemovedOnEarlierPagePreservesEdits() async throws {
+        var original = ledger(); var pending = entry("pending", pending: true); pending.notes = "Keep across pages"; original.entries = [pending]
+        let provider = MockProvider(pages: [
+            "initial": SyncPage(entries: [], removedIDs: ["pending"], nextCursor: "p1", hasMore: true),
+            "p1": SyncPage(entries: [entry("posted", pendingID: "pending")], nextCursor: "done", hasMore: false)
+        ])
+        let result = try await Synchronizer.synchronize(original, accountID: "a", provider: provider)
+        XCTAssertEqual(result.entries.count, 1); XCTAssertEqual(result.entries[0].notes, "Keep across pages")
+        XCTAssertNotNil(result.entries[0].syncedAt)
+    }
+    func testChangedProviderAmountPreservesSplitsForReview() async throws {
+        var original = ledger(); var old = entry(amount: "10"); old.splits = [Split(category: "Fuel", amount: 10)]; original.entries = [old]
+        let provider = MockProvider(pages: ["initial": SyncPage(entries: [entry(amount: "12")], nextCursor: "done", hasMore: false)])
+        let result = try await Synchronizer.synchronize(original, accountID: "a", provider: provider)
+        XCTAssertEqual(result.entries[0].splits, old.splits); XCTAssertTrue(result.entries[0].splitsNeedReview)
+        XCTAssertEqual(Finance.spending(result.entries, start: start, end: end, category: "Other"), 12)
+        XCTAssertEqual(Finance.spending(result.entries, start: start, end: end, category: "Fuel"), 0)
+    }
     func testProviderRemoval() async throws {
         var original = ledger(); original.entries = [entry()]
         let provider = MockProvider(pages: ["initial": SyncPage(entries: [], removedIDs: ["one"], nextCursor: "done", hasMore: false)])

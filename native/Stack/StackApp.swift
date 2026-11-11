@@ -33,7 +33,9 @@ struct StackRoot: View {
     @State private var unlocked = false
     var body: some View {
         Group {
-            if lock && !unlocked {
+            if phase != .active {
+                VStack(spacing: 16) { Image(systemName: "square.stack.3d.up").font(.largeTitle); Text("Stack").font(.title) }
+            } else if lock && !unlocked {
                 VStack(spacing: 20) { Image(systemName: "lock.shield").font(.largeTitle); Text("Stack is locked").font(.title); Button("Unlock", action: authenticate) }
             } else {
                 TabView {
