@@ -17,4 +17,4 @@ jobs:
         with:
           node-version: 20
       - run: node ci/smoke.mjs
-      - run: node --test backend/sync.test.mjs
+      - run: node --test backend/sync.test.mjs bmo-test/test.mjs
