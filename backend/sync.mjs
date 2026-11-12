@@ -73,7 +73,7 @@ export async function synchronize(state, provider, now = () => new Date().toISOS
     try {
       for (let pageNumber = 0; pageNumber < 1000; pageNumber++) {
         const page = await provider.page(state.accessToken, cursor);
-        if (!Array.isArray(page.added) || !Array.isArray(page.modified) || !Array.isArray(page.removed) || typeof page.has_more !== 'boolean' || typeof page.next_cursor !== 'string' || !page.next_cursor || seen.has(page.next_cursor) || (page.has_more && page.next_cursor === cursor)) throw new Error('INVALID_SYNC_PAGE');
+        if (!Array.isArray(page.added) || !Array.isArray(page.modified) || !Array.isArray(page.removed) || typeof page.has_more !== 'boolean' || typeof page.next_cursor !== 'string' || (page.has_more && (!page.next_cursor || seen.has(page.next_cursor) || page.next_cursor === cursor)) || (!page.next_cursor && (page.added.length || page.modified.length || page.removed.length))) throw new Error('INVALID_SYNC_PAGE');
         seen.add(page.next_cursor);
         for (const transaction of [...page.added, ...page.modified]) {
           if (!transaction.transaction_id || !transaction.account_id) throw new Error('INVALID_TRANSACTION');
@@ -81,7 +81,7 @@ export async function synchronize(state, provider, now = () => new Date().toISOS
           if (!transaction.pending && transaction.pending_transaction_id) transactions.delete(transaction.pending_transaction_id);
         }
         for (const removed of page.removed) transactions.delete(removed.transaction_id);
-        cursor = page.next_cursor;
+        cursor = page.next_cursor || cursor;
         if (!page.has_more) return {...staged, transactions: [...transactions.values()], cursor, lastSuccess: now(), failedJobs: 0};
       }
       throw new Error('PAGINATION_LIMIT');

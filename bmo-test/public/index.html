@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Stack · Private BMO test</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"
+      defer
+    ></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">STACK · LOCAL PRODUCTION TEST</p>
+      <h1>Verify your BMO connection.</h1>
+      <p>
+        This test uses real Plaid Production access. Bank sign-in happens inside
+        Plaid Link. Never enter banking credentials on this page.
+      </p>
+      <p>
+        Creating Link and exchanging its token do not start this app’s balance
+        or transaction requests. Plaid may ingest data after your Link consent.
+        Select <strong>Canadian BMO</strong> and the accounts you want to test.
+        A new Item may consume a Free Trial connection.
+      </p>
+      <section>
+        <h2>1. Authorize your accounts</h2>
+        <button id="connect" disabled>
+          Connect Canadian BMO through Plaid
+        </button>
+        <p>
+          No relinking is needed after a restart. Existing Items are preserved.
+        </p>
+      </section>
+      <section>
+        <h2>2. Retrieve balances and history</h2>
+        <p>
+          Only this button starts balance retrieval and transaction sync.
+          Requests up to 730 days; actual availability depends on BMO and Plaid.
+          An empty result or the end of pagination does not prove backfilling is
+          finished.
+        </p>
+        <button id="sync" disabled>
+          Retrieve balances and synchronize history
+        </button>
+        <button id="stop" disabled>Stop after current request</button>
+        <p>
+          Historical checks pause after roughly two minutes; an in-flight
+          request or pagination batch can take longer. If still initializing,
+          continue later using the same Item and cursor.
+        </p>
+      </section>
+      <p id="message" role="status">Unlocking this local session…</p>
+      <section>
+        <h2>Private diagnostic summary</h2>
+        <p>
+          Only account aliases, counts, dates, status and redacted error codes
+          appear here. Balance values, merchants, transaction amounts, account
+          numbers and tokens are omitted.
+        </p>
+        <pre id="report">No banking data retrieved.</pre>
+        <button id="download" disabled>Download aggregate report</button>
+        <button id="item" disabled>Reveal Item ID for Plaid Debugger</button>
+        <p id="itemID"></p>
+      </section>
+      <section>
+        <h2>End the test</h2>
+        <button id="disconnect" disabled>
+          Remove connected Plaid Item and local results
+        </button>
+        <p>
+          Closing this page does not delete the Item. Removal is explicit and
+          also deletes this test’s stored token and transaction summary.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

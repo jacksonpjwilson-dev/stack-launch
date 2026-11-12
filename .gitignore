@@ -9,3 +9,9 @@ native/.swiftpm/
 DerivedData/
 xcuserdata/
 *.xcuserstate
+
+# BMO test state must live outside the checkout; defense against accidental copies.
+*.enc
+encryption.key
+localhost.crt
+localhost-cert.cnf
